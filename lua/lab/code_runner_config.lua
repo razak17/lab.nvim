@@ -21,6 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 local Filetype = require'plenary.filetype'
 local Path = require'plenary.path'
 local Configs = require'lab.code_runner_configs'
+local c = require'lab.config'
 
 local Config = {};
 
@@ -29,10 +30,7 @@ function Config.init(file_path)
 	
 	local file_type = Filetype.detect(file_path)
 
-	local config_path = Path:new(vim.fn.stdpath('data').."/lab/runnerconf")
-	if not config_path:exists() then
-		config_path:mkdir({ parents = true })
-	end
+	local config_path = Path:new(c.opts.runnerconf_path)
 
 	local config_file = Path:new(file_path:gsub(config_path._sep, "-"):sub(2):lower() .. ".json")
 	local path = config_path:joinpath(config_file.filename)

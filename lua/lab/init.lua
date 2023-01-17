@@ -24,29 +24,22 @@ local CodeRunner = require 'lab.code_runner'
 local Lab = {}
 local state = { active = false }
 
-local default_opts = {
-	code_runner = {
-		enabled = true,
-	},
-	quick_data = {
-		enabled = true,
-	},
-}
+local c = require 'lab.config'
 
 function Lab.setup(opts)
 	if state.active == true then return end
 	
-	opts = vim.tbl_deep_extend('force', default_opts, opts or {})
+  c.load(opts)
 
-	if opts.code_runner.enabled or opts.quick_data.enabled then
+	if c.opts.code_runner.enabled or c.opts.quick_data.enabled then
 		Process:start()
 	end
 
-	if opts.code_runner.enabled then
-		CodeRunner.setup(opts);
+	if c.opts.code_runner.enabled then
+		CodeRunner.setup(c.opts);
 	end
 
-	if opts.quick_data.enabled then
+	if c.opts.quick_data.enabled then
 		local has_cmp, cmp = pcall(require, 'cmp')
 		if has_cmp then
 			require('lab.quick_data').init()
