@@ -67,7 +67,7 @@ function VirtualText:render(opts)
 		end
 	end
 
-	mark_opts.virt_text = { { " " .. opts.icon .. " │ " .. opts.text .. " ", opts.hl } }
+	mark_opts.virt_text = { { opts.icon .. " " .. opts.text .. " ", opts.hl } }
 
 	local markId = api.nvim_buf_set_extmark(opts.buf_handle, self.namespace, opts.line_num, 0, mark_opts)
 

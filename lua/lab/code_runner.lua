@@ -242,7 +242,8 @@ function CodeRunner.handler(msg)
 				buf_handle = buf_handle,
 				line_num = msg.params.line,
 				text = msg.params.text,
-				hl = highlights[msg.params.type] or nil
+				hl = highlights[msg.params.type] or nil,
+				icon = "<-",
 			})
 			Panel:write("- [" .. (msg.params.line + 1) .. "] " .. msg.params.text)
 		end, 1)
